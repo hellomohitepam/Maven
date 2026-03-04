@@ -85,19 +85,85 @@
 - It is machine-specific
 
 
+- An artifact is any file that Maven consumes, manages, or produces — most commonly a JAR, WAR, or POM file. It is the output of a build or a dependency pulled from a repository.
 
+- GroupId identifies the organization or project family — it's like a namespace. It's broad and shared across multiple modules.
+- ArtifactId identifies the specific module or component within that group — it's the exact "thing" being built.
 
+```
+Compile phase  →  "Does this class EXIST?"
+                   javac checks JAR → yes/no
+                   just VERIFICATION
 
+Testing phase  →  "Give me the actual CLASS to EXECUTE"
+                   JVM finds JAR → loads .class file
+                   actual LOADING & EXECUTION
+```
 
+# 📦 Maven Dependency Scopes vs Build Lifecycle
 
+| Scope        | Compile Phase | Test Phase | Runtime Phase | Packaged in Artifact | Description                                               |
+| ------------ | ------------- | ---------- | ------------- | -------------------- | --------------------------------------------------------- |
+| **compile**  | ✅ Yes         | ✅ Yes      | ✅ Yes         | ✅ Yes                | Default scope. Available everywhere.                      |
+| **provided** | ✅ Yes         | ✅ Yes      | ❌ No          | ❌ No                 | Provided by the runtime container (e.g., server).         |
+| **runtime**  | ❌ No          | ✅ Yes      | ✅ Yes         | ✅ Yes                | Needed only when the program runs.                        |
+| **test**     | ❌ No          | ✅ Yes      | ❌ No          | ❌ No                 | Used only for testing (JUnit, Mockito).                   |
+| **system**   | ✅ Yes         | ✅ Yes      | ❌ No          | ❌ No                 | Like `provided` but dependency is from local system path. |
 
+| Dependency   | Typical Scope |
+| ------------ | ------------- |
+| Spring Core  | `compile`     |
+| Servlet API  | `provided`    |
+| MySQL Driver | `runtime`     |
+| JUnit        | `test`        |
+| Local JAR    | `system`      |
 
+# 🧠 Simple Way to Remember
+| Scope    | Meaning                  |
+| -------- | ------------------------ |
+| compile  | Needed to build and run  |
+| provided | Server will provide it   |
+| runtime  | Needed only when running |
+| test     | Needed only for testing  |
+| system   | Local jar manually added |
 
+# Maven default build lifecycle
+Your .java files
+        ↓
+Task 1: VALIDATE
+        → Is pom.xml correct?
+        → Are all required fields present?
+        → Is project structure correct?
+        ↓
+Task 2: COMPILE
+        → Run javac on your .java files
+        → Convert to .class files
+        → Check for syntax errors
+        ↓
+Task 3: TEST
+        → Run all your JUnit test classes
+        → Check if all tests pass
+        → Fail build if any test fails
+        ↓
+Task 4: PACKAGE
+        → Take all .class files
+        → Bundle into JAR or WAR file
+        → Put in target/ folder
+        ↓
+Task 5: VERIFY
+        → Run integration tests
+        → Check package is valid
+        ↓
+Task 6: INSTALL
+        → Copy JAR to your local
+          ~/.m2/repository
+        → Other local projects can use it
+        ↓
+Task 7: DEPLOY
+        → Upload JAR to remote repository
+        → Other teams can download it
 
-
-
-
-
+Final Output: my-app-1.0.0.jar ✅
 
 
 
