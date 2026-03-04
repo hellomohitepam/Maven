@@ -128,6 +128,7 @@ Testing phase  →  "Give me the actual CLASS to EXECUTE"
 | system   | Local jar manually added |
 
 # Maven default build lifecycle
+```
 Your .java files
         ↓
 Task 1: VALIDATE
@@ -165,7 +166,7 @@ Task 7: DEPLOY
 
 Final Output: my-app-1.0.0.jar ✅
 
-
+```
 
 
 
