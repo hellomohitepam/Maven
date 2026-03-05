@@ -264,6 +264,61 @@ Generated HTML files are UPLOADED to:
 → Company internal server
 → Any web hosting
 ```
+# Nexus 
+- A server that stores and caches project dependencies and artifacts for a team or company.
+- Think of it as a middleman server that sits between your developers and the internet (Maven Central).
+```
+Developer Machine (need spring-core)
+        │
+        ▼
+     Maven (Maven asks Nexus for spring-core)
+        │
+        ▼
+      Nexus (Nexus does not have it yet)
+        │
+        ▼
+   Maven Central (Nexus downloads it from Maven Central & Nexus stores (caches) it)
+```
+```
+Internet (Maven Central)
+        ↑ only when not cached
+        |
+   [NEXUS/ARTIFACTORY]  ← Repository Manager
+   ├── Cache of external JARs
+   ├── Internal company JARs
+   └── Policy enforcement
+        |
+        ↓ fast & secure
+   Company Network
+   ├── Developer 1
+   ├── Developer 2
+   ├── Developer 3
+   └── CI/CD Pipeline
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
