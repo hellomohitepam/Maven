@@ -1,5 +1,5 @@
 
-
+Article - https://maven.apache.org/guides/mini/guide-multiple-modules.html
 
 # You basically have two possible Maven installations:
 ## 1. Standalone Maven (that you downloaded)
