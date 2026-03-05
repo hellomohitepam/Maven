@@ -1,5 +1,5 @@
 
-Article - https://maven.apache.org/guides/mini/guide-multiple-modules.html
+Article multi-model- https://maven.apache.org/guides/mini/guide-multiple-modules.html
 
 # You basically have two possible Maven installations:
 ## 1. Standalone Maven (that you downloaded)
@@ -295,18 +295,47 @@ Internet (Maven Central)
    ├── Developer 3
    └── CI/CD Pipeline
 ```
+# Maven Wrapper
+- `mvn wrapper:wrapper`
+- Maven Wrapper solves the "works on my machine" problem!
+- The Maven version is defined in .mvn/wrapper/maven-wrapper.properties file
+
+  
+```
+Tech Lead / Senior Dev runs once:
+mvn wrapper:wrapper -Dmaven=3.9.6
+        ↓
+maven-wrapper.properties automatically updated ✅
+        ↓
+committed to Git
+        ↓
+all developers just pull and use it automatically
+```
+
+# **Flow when you run `./mvnw`:**
+```
+./mvnw runs
+     ↓
+reads maven-wrapper.properties
+     ↓
+checks if that Maven version exists locally (~/.m2/wrapper/)
+     ↓ (if not found)
+downloads from distributionUrl
+     ↓
+uses that exact version ✅
+```
+
+| **Benefit**                | **Description**                                                                                      |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Consistency**            | Everyone uses the **exact same Maven version** for the project.                                      |
+| **No installation needed** | The wrapper **automatically downloads Maven**, so developers don’t need to install it manually.      |
+| **New developers**         | They can **just clone the repository and run the project** without installing Maven.                 |
+| **CI/CD friendly**         | Build servers **don’t need Maven pre-installed** because the wrapper downloads the required version. |
+| **Version control**        | The **Maven version is stored in Git along with the project**, ensuring reproducible builds.         |
 
 
-
-
-
-
-
-
-
-
-
-
+### Plugin
+> work is actually done by plugins
 
 
 
